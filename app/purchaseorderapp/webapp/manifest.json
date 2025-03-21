@@ -1,0 +1,178 @@
+{
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "ust.prashant.purchaseorderapp",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.16.5",
+      "toolsId": "e5d837e0-2f4c-4b77-b81d-3ab29740d5e2"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/CatalougeService/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "PurchaseOrder-manage": {
+          "semanticObject": "PurchaseOrder",
+          "action": "manage",
+          "title": "{{PurchaseOrder-manage.flpTitle}}",
+          "subTitle": "{{PurchaseOrder-manage.flpSubtitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.127.7",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "ust.prashant.purchaseorderapp.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "POsList",
+          "target": "POsList"
+        },
+        {
+          "pattern": "POs({key}):?query:",
+          "name": "POsObjectPage",
+          "target": "POsObjectPage"
+        },
+        {
+          "pattern": "POs({key})/Items({key2}):?query:",
+          "name": "PoItemsObjectPage",
+          "target": "PoItemsObjectPage"
+        }
+      ],
+      "targets": {
+        "POsList": {
+          "type": "Component",
+          "id": "POsList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/POs",
+              "variantManagement": "Page",
+              "navigation": {
+                "POs": {
+                  "detail": {
+                    "route": "POsObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "POsObjectPage": {
+          "type": "Component",
+          "id": "POsObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/POs",
+              "navigation": {
+                "Items": {
+                  "detail": {
+                    "route": "PoItemsObjectPage"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "PoItemsObjectPage": {
+          "type": "Component",
+          "id": "PoItemsObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/POs/Items"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  }
+}

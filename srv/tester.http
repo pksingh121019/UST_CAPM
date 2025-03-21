@@ -1,0 +1,110 @@
+### get the service document
+
+http://localhost:4004/odata/v4/CatalougeService
+
+### get the metadata
+
+http://localhost:4004/odata/v4/CatalougeService/$metadata
+
+### get all employee data
+http://localhost:4004/odata/v4/CatalougeService/EmployeeSet
+
+
+### get single employee data
+http://localhost:4004/odata/v4/CatalougeService/EmployeeSet/02BD2137-0890-1EEA-A6C2-BB55C198A7FB
+
+### get the total count
+http://localhost:4004/odata/v4/CatalougeService/EmployeeSet/$count
+
+
+### get the data chunkby chunk $top,$skip
+http://localhost:4004/odata/v4/CatalougeService/EmployeeSet?$top=5&$skip=3
+
+### get the data based on filter
+http://localhost:4004/odata/v4/CatalougeService/EmployeeSet?$filter=bankName eq 'My Bank of New York'
+
+### get the data based on filterp attern
+http://localhost:4004/odata/v4/CatalougeService/EmployeeSet?$filter=contains(nameFirst,'Su')
+
+
+### get the Particular column data -$select
+http://localhost:4004/odata/v4/CatalougeService/EmployeeSet?$select= nameFirst,nameLast
+
+### create new employee
+POST http://localhost:4004/odata/v4/CatalougeService/EmployeeSet
+Content-Type: application/json
+
+{
+  
+  "nameFirst": "prashant",
+  "nameMiddle": "kumar",
+  "nameLast": "singh",
+  "nameInitials": null,
+  "sex": "M",
+  "language": "E",
+  "phoneNumber": "+911234567899",
+  "email": "pksingh@gmail.com",
+  "loginName": "MILLERM",
+  "Currency_code": "USD",
+  "salaryAmount": 86574,
+  "accountNumber": "76543210",
+  "bankId": "66665555",
+  "bankName": "My Bank of London"
+}
+
+### get the created employee just now above
+
+http://localhost:4004/odata/v4/CatalougeService/EmployeeSet/c8109d75-2502-4056-84b2-7d39940044f9
+
+
+### Modify the created employee just now above
+
+PATCH http://localhost:4004/odata/v4/CatalougeService/EmployeeSet/c8109d75-2502-4056-84b2-7d39940044f9
+Content-Type: application/json
+
+{
+
+  "Currency_code": "INR",
+  "salaryAmount": 900000
+
+}
+
+###Delete the created employee
+DELETE  http://localhost:4004/odata/v4/CatalougeService/EmployeeSet/b388f8a6-dab3-45d7-b85c-ee5e33368515
+
+
+### get the data from CDS Views
+http://localhost:4004/odata/v4/CatalougeService/Products
+
+### get the data for a single product
+http://localhost:4004/odata/v4/CatalougeService/Products/74867AD200E41EDBA5D8B06B26EBA052
+
+
+### get me order where this product is used -lazy loading
+http://localhost:4004/odata/v4/CatalougeService/Products/74867AD200E41EDBA5D8B06B26EBA052/To_Items
+
+### get product and item data in single call
+http://localhost:4004/odata/v4/CatalougeService/Products/74867AD200E41EDBA5D8B06B26EBA052?$expand=To_Items
+
+###Get All Po
+http://localhost:4004/odata/v4/CatalougeService/POs
+
+###Get single Po
+http://localhost:4004/odata/v4/CatalougeService/POs/74867AD200E41EDBA5D8B0C98DC2E052
+
+###Get  Po with Items
+http://localhost:4004/odata/v4/CatalougeService/POs/74867AD200E41EDBA5D8B0C98DC28052?$expand=Items
+
+
+###Action (instance based ) ---on each boost action gross amount will inc by 20000
+POST http://localhost:4004/odata/v4/CatalougeService/POs/74867AD200E41EDBA5D8B0C98DC2E052/CatalougeService.boost
+Content-Type: application/json
+
+{}
+
+###get function data for largest order 
+
+http://localhost:4004/odata/v4/CatalougeService/largestOrder()
+
+
+
