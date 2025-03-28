@@ -1,0 +1,13 @@
+{
+    "requires": {
+      "db": {
+        "kind": "hana"
+      }
+    },
+    "cds": {
+      "odata": {
+        "version": "v4"
+      }
+    }
+  }
+  
