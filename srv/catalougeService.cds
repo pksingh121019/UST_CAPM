@@ -2,10 +2,15 @@ using { prashant.db.master,prashant.db.transaction  } from '../db/datamodel';
 using { cappo.cds } from '../db/CDSView';
 
 
-service CatalougeService @(path: 'CatalougeService' ) {
+service CatalougeService @(path: 'CatalougeService', requires: 'authenticated-user' ) {
   // readonly is to restrict from new creation of employee
   //@readonly
-  entity EmployeeSet as projection on master.employees;
+  entity EmployeeSet @(restrict: [ 
+                        { grant: ['READ'], to: 'Viewer', where: 'bankName = $user.BankName' },
+                        { grant: ['WRITE'], to: 'Admin' }
+                        ]) 
+  
+                      as projection on master.employees;
 
   //@Capabilities : { Deletable: false }
   //for draft functionality odata.draft.enabled: true
